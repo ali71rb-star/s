@@ -1,0 +1,22 @@
+Swift Player Created by A brothers — display version 1.0, internal build 10.
+PRIVATE ARCHIVE: contains the original password-protected release signing private key. Do not upload this archive, its keystore or its password to GitHub. Only publish the signed APK. Store the separate password file safely and separately.
+
+Open SwiftPlayer in Android Studio. Use JDK 17, Android SDK Platform 37 and Build-Tools 37.0.0. Configure the SDK in Android Studio or supply local.properties; the Gradle wrapper resolves dependencies from the configured repositories. From SwiftPlayer, run ./gradlew :app:testDebugUnitTest or (Windows) gradlew.bat :app:testDebugUnitTest.
+
+For an updatable release, set ELITE_KEYSTORE to the absolute path of signing/elite-release.p12 included at the root of THIS ZIP, and ELITE_STORE_PASSWORD to the password delivered separately; key alias elite-player, PKCS12, same store and key password. Run ./gradlew :app:assembleRelease :app:lintRelease (Windows: gradlew.bat). Release build checks the original certificate. SHA-256 cert: 9a04a395fd00ec6556597f12a25c41ee9d7d4cc09128dd01e85895acb425e7ac. Preserve package name com.abrothers.swiftplayer and raise the internal versionCode for future releases. Source supports feature-equivalent builds, not guaranteed byte-for-byte identical output.
+
+GitHub: publish the new signed APK unmodified, then update repository metadata with a higher release number than your previously published release if needed. The in-app version remains 1.0. This build has not been published to your repo. The presently checked GitHub APK (build 9) matches the original release signer. An installed app signed by a different key cannot accept this key as an in-place Android update.
+
+Manifest/installer review: no new privileged permissions, no Play Protect bypass, private APK staging and OS installer confirmation retained. R8 and protected local assets retained. For a suspected erroneous block, submit the exact signed APK through Google Play Protect developer review: https://developers.google.com/android/play-protect/warning-dev-guidance
+
+Open with uses exact document or file identity (not merely filename) plus Android-granted access. Unresolvable read-only providers cannot be changed silently. Back closes playback and cancels the media notification; resume data is saved. Tester modes separate playback, storage/permissions and update checks. Granted storage probes are read-only and the tester does not modify user media. No physical-phone or Google Play Protect verdict was verified.
+
+249 automated checks passed; release lint had 0 errors; signature and ZIP alignment verified. APK SHA-256: b80f3b74fcab3f0e93da99ee2ef45d6e25b170d55bf7b261034394626a30caef
+
+--- UPDATE (internal build 11) ---
+Changes: More Options swap/Open-with cleanup, bottom Rewind/Pause/Fast Forward row, USB OTG storage, Move/Copy with progress, extracted-ZIP media in All Files, notification Rewind/Fast Forward, new manual "APK Tester", versionCode 10 -> 11. Signing key and package name unchanged.
+GitHub Actions: workflow is .github/workflows/build-signed-apk.yml. In the repo, Settings > Secrets > Actions add:
+  ELITE_STORE_PASSWORD   = the keystore password
+  ELITE_KEYSTORE_BASE64  = output of: base64 -w0 signing/elite-release.p12
+Never commit signing/ (see .gitignore). The workflow fails if the APK is not signed by certificate 9a04a395...e7ac.
+The verification/ folder describes the OLD build 10 only.
